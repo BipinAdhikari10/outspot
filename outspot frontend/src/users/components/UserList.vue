@@ -1,13 +1,20 @@
 <template>
   <div>
     <ul class="users-list">
-      <template v-if="users.length < 1">
+      <CardComponent
+        :myStyle="{
+          padding: '20px 30px',
+          fontSize: '40px',
+          marginTop: '100px',
+        }"
+        v-if="users.length < 1"
+      >
         <li style="text-align: center">No data found</li>
-      </template>
+      </CardComponent>
 
       <template v-else>
         <li v-for="user in users" :key="user.id" class="user-item">
-          <div class="user-item__content">
+          <CardComponent className="user-item__content">
             <router-link :to="`/users/${user.id}`">
               <div class="user-item__image">
                 <ImageUpload :ImageSrc="user.image" :altText="user.name" />
@@ -20,7 +27,7 @@
                 <!-- <ButtonComponent buttonText="Submit" myClass="btn-success" /> -->
               </div>
             </router-link>
-          </div>
+          </CardComponent>
         </li>
       </template>
     </ul>
@@ -30,11 +37,13 @@
 <script>
 import ImageUpload from "@/shared/ui/ImageUpload.vue";
 // import ButtonComponent from "@/shared/ui/ButtonComponent.vue";
+import CardComponent from "@/shared/ui/CardComponent.vue";
 
 export default {
   name: "UserList",
   components: {
     ImageUpload,
+    CardComponent,
     // ButtonComponent,
   },
   data() {
