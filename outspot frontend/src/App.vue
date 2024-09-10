@@ -1,13 +1,17 @@
 <template>
   <div id="app">
+    <HeaderNavigation />>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import HeaderNavigation from "./shared/ui/Navigation/HeaderNavigation.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    HeaderNavigation,
+  },
 };
 </script>
 
