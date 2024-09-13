@@ -10,6 +10,7 @@
         v-if="users.length < 1"
       >
         <li style="text-align: center">No data found</li>
+        <button class="button-redirect" @click="clickHandler">Add Place</button>
       </CardComponent>
 
       <template v-else>
@@ -24,7 +25,6 @@
                 <h3>
                   {{ user.places }} {{ user.places > 1 ? "places" : "place" }}
                 </h3>
-                <!-- <ButtonComponent buttonText="Submit" myClass="btn-success" /> -->
               </div>
             </router-link>
           </CardComponent>
@@ -36,7 +36,6 @@
 
 <script>
 import ImageUpload from "@/shared/ui/ImageUpload.vue";
-// import ButtonComponent from "@/shared/ui/ButtonComponent.vue";
 import CardComponent from "@/shared/ui/CardComponent.vue";
 
 export default {
@@ -44,7 +43,6 @@ export default {
   components: {
     ImageUpload,
     CardComponent,
-    // ButtonComponent,
   },
   data() {
     return {
@@ -54,7 +52,11 @@ export default {
   props: {
     users: Array,
   },
-  methods: {},
+  methods: {
+    clickHandler() {
+      this.$router.push("/places/new");
+    },
+  },
 };
 </script>
 
@@ -68,6 +70,8 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 50px;
+  gap: 50px;
 }
 .user-item {
   margin: 1rem;
@@ -141,5 +145,15 @@ export default {
 .user-item__info h2,
 .user-item__info h3 {
   margin: 0.5rem 0;
+}
+.button-redirect {
+  padding: 10px 12px;
+  cursor: pointer;
+  width: 100%;
+  background-color: green;
+  color: white;
+  outline: none;
+  border: none;
+  margin: 0 auto;
 }
 </style>
