@@ -10,7 +10,7 @@ export default {
   components: {},
   data() {
     return {
-      message: "This is place",
+      message: "This is add  place",
     };
   },
   props: {},
