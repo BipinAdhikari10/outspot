@@ -77,7 +77,7 @@ export default {
 }
 
 .place-item {
-  margin: 1rem 0;
+  margin: 1rem 0 !important;
 }
 
 .place-item__content {

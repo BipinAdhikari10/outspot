@@ -72,6 +72,7 @@ export default {
   flex-wrap: wrap;
   margin-top: 50px;
   gap: 50px;
+  border: 2px solid white;
 }
 .user-item {
   margin: 1rem;
@@ -129,7 +130,7 @@ export default {
 }
 
 .user-item__content {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
   border-radius: 6px;
   overflow: hidden;
   text-align: center;
