@@ -3,22 +3,29 @@
     <h1 class="main-navigation__title">
       <router-link to="/">OutSpot</router-link>
     </h1>
-    <nav className="main-navigation__header-nav">
+    <nav class="main-navigation__header-nav">
       <ul class="nav-links">
+        <!-- Always show these links -->
         <li>
           <router-link to="/">ALL USERS</router-link>
         </li>
-        <li id="my-places">
+
+        <!-- Show these links only if the user is authenticated -->
+        <li v-if="isAuthenticated" id="my-places">
           <router-link to="/users/1">MY PLACES</router-link>
         </li>
-        <li id="add-place">
+        <li v-if="isAuthenticated" id="add-place">
           <router-link to="/places/new">ADD PLACE</router-link>
         </li>
-        <li id="authenticate">
+
+        <!-- Show this link if the user is NOT authenticated -->
+        <li v-if="!isAuthenticated" id="authenticate">
           <router-link to="/auth">AUTHENTICATE</router-link>
         </li>
-        <li id="logout">
-          <button id="logout-button">LOGOUT</button>
+
+        <!-- Show this button if the user is authenticated -->
+        <li v-if="isAuthenticated" id="logout">
+          <button @click="logoutHandler" id="logout-button">LOGOUT</button>
         </li>
       </ul>
     </nav>
@@ -28,6 +35,19 @@
 <script>
 export default {
   name: "HeaderNavigation",
+  computed: {
+    // Access the Vuex store to check if the user is authenticated
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+  methods: {
+    logoutHandler() {
+      // Call the Vuex action to log the user out
+      this.$store.dispatch("logout");
+      this.$router.push("/auth"); // Redirect to the auth page after logout
+    },
+  },
 };
 </script>
 
