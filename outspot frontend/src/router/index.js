@@ -5,7 +5,8 @@ import HomePage from "@/users/pages/HomePage.vue";
 import AddPlace from "@/places/pages/AddPlace.vue";
 import UserDetailPage from "@/users/pages/UserDetailPage.vue";
 import PlaceDetailsPage from "@/places/pages/PlaceDetailsPage.vue";
-import UserAuthentication from "@/users/pages/UserAuthentication.vue";
+// import UserAuthentication from "@/users/pages/UserAuthentication.vue";
+import UserAuthenticationPage from "@/users/pages/UserAuthenticationPage.vue";
 
 Vue.use(VueRouter);
 
@@ -32,9 +33,9 @@ const routes = [
     component: PlaceDetailsPage,
   },
   {
-    path: "/authenticate",
+    path: "/auth",
     name: "UserAuthentication",
-    component: UserAuthentication,
+    component: UserAuthenticationPage,
   },
 ];
 

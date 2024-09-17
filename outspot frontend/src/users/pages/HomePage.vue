@@ -6,6 +6,7 @@
 
 <script>
 import UserList from "../components/UserList.vue";
+import axios from "axios";
 export default {
   name: "HomePage",
   components: {
@@ -33,7 +34,23 @@ export default {
     };
   },
   props: {},
-  methods: {},
+  methods: {
+    getUserData() {
+      axios
+        .get("http://localhost:5000/users")
+        .then((response) => {
+          // Process the response data
+          console.log(response.data);
+          return response.data; // You can return it or do whatever is needed
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    },
+  },
+  created() {
+    this.getUserData();
+  },
 };
 </script>
 

@@ -32,7 +32,7 @@
               </ValidationProvider>
             </div>
             <ValidationProvider v-slot="{ errors }" rules="required">
-              <div class="form-group mb-3">
+              <div class="form-group mb-5">
                 <label for="address" class="form-label">Address</label>
                 <input
                   type="text"
@@ -42,13 +42,22 @@
                   placeholder="Enter address"
                 />
               </div>
-              <span class="error-message">{{ errors[0] }}</span>
+              <span style="margin-top: -50px" class="error-message">{{
+                errors[0]
+              }}</span>
             </ValidationProvider>
 
-            <div class="form-group mb-3">
+            <div class="form-group mt-3 mb-3">
               <label for="image" class="form-label">Upload Image</label>
-              <input type="file" class="form-control" id="image" />
+              <input
+                type="file"
+                class="form-control"
+                id="image"
+                @change="handleImageUpload"
+                accept="image/*"
+              />
             </div>
+
             <div style="text-align: center">
               <button type="submit" class="button button--success">
                 Submit
@@ -62,37 +71,47 @@
 </template>
 
 <script>
-// import CardComponent from "@/shared/ui/CardComponent.vue";
-
 export default {
   name: "AddPlace",
-  components: {
-    // CardComponent,
-  },
   data() {
     return {
       formData: {
         title: "",
         description: "",
         address: "",
-        image: "",
+        image: null, // Image field to hold the file
       },
     };
   },
-  props: {},
   methods: {
     submitHandler() {
       this.$refs.form.validate().then((valid) => {
         if (valid) {
+          // Form submission logic here
           console.log(this.formData);
+          this.resetForm();
         } else {
           console.log("Form is not valid");
         }
       });
     },
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      this.formData.image = file; // Assign the selected image to formData
+    },
+    resetForm() {
+      this.formData.title = "";
+      this.formData.description = "";
+      this.formData.address = "";
+      this.formData.image = null; // Reset image field
+      // Reset file input manually
+      document.getElementById("image").value = "";
+      this.$refs.form.reset();
+    },
   },
 };
 </script>
+
 <style>
 /* Full-screen background with form centering */
 
@@ -150,8 +169,10 @@ textarea::placeholder {
   color: #aaa;
   font-style: italic;
 }
+
 .error-message {
   color: red;
+  display: block;
 }
 
 /* Form Container Responsiveness */
