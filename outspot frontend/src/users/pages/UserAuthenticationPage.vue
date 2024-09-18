@@ -103,7 +103,7 @@ export default {
                 this.$router.push("/"); // Redirect to homepage after login
               } else {
                 console.log("Registered successfully");
-                this.$router.push("/places/new"); // Optional: Redirect to login after registration
+                this.isLogin = true;
               }
             })
             .catch((error) => {

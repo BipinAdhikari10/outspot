@@ -71,6 +71,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapGetters } from "vuex";
+
 export default {
   name: "AddPlace",
   data() {
@@ -83,13 +86,37 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters(["token"]), // Access the token from Vuex store
+  },
   methods: {
     submitHandler() {
       this.$refs.form.validate().then((valid) => {
         if (valid) {
-          // Form submission logic here
-          console.log(this.formData);
-          this.resetForm();
+          const placeData = new FormData();
+          placeData.append("title", this.formData.title);
+          placeData.append("description", this.formData.description);
+          placeData.append("address", this.formData.address);
+          if (this.formData.image) {
+            placeData.append("image", this.formData.image);
+          }
+
+          // Sending data to the backend API with Authorization header
+          axios
+            .post("http://localhost:5000/spots/add", placeData, {
+              headers: {
+                Authorization: `Bearer ${this.token}`, // Attach Bearer token from Vuex store
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              console.log("Place added successfully", response.data);
+              this.resetForm();
+              this.$router.push("/"); // Redirect to homepage or desired route
+            })
+            .catch((error) => {
+              console.error("Error adding place:", error);
+            });
         } else {
           console.log("Form is not valid");
         }

@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isAuthenticated: null,
     token: null,
     userId: null,
     userName: null,
